@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
-import { Trophy, Target, Flame, Award, Lock } from "lucide-react";
+import { Trophy, Target, Flame, Award, Lock, Gamepad2, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/logros")({
   component: Logros,
