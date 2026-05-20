@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { AppShell } from "@/components/AppShell";
 import { dishes } from "@/lib/dishes";
-import { Flame, Trophy, TrendingUp, Sparkles, ChevronRight, Crown } from "lucide-react";
+import { Flame, Trophy, TrendingUp, Sparkles, ChevronRight, Crown, Scale, LineChart, UserCheck, Gamepad2 } from "lucide-react";
 import heroImg from "@/assets/hero-nutritionist.jpg";
 
 export const Route = createFileRoute("/")({
@@ -14,7 +15,18 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+function useFirstVisitRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!localStorage.getItem("nc_onboarded")) {
+      navigate({ to: "/bienvenida" });
+    }
+  }, [navigate]);
+}
+
 function Home() {
+  useFirstVisitRedirect();
   return (
     <AppShell>
       {/* Header */}
@@ -47,10 +59,10 @@ function Home() {
             Nuestros nutricionistas diseñan tu plato según tus macros, alergias y objetivos.
           </p>
           <Link
-            to="/reservar"
+            to="/personalizar"
             className="relative z-10 mt-4 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary"
           >
-            Reservar ahora <ChevronRight className="h-4 w-4" />
+            Diseñar mi plato <ChevronRight className="h-4 w-4" />
           </Link>
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10" />
           <div className="absolute -right-12 bottom-0 h-24 w-24 rounded-full bg-white/10" />
@@ -64,6 +76,17 @@ function Home() {
           <StatCard icon={Flame} value="1,420" label="kcal" tint="primary" />
           <StatCard icon={TrendingUp} value="92g" label="proteína" tint="secondary" />
           <StatCard icon={Trophy} value="3" label="retos" tint="accent" />
+        </div>
+      </section>
+
+      {/* Accesos rápidos */}
+      <section className="px-5 mt-6">
+        <h2 className="mb-3 text-sm font-semibold text-muted-foreground uppercase tracking-wider">Tus herramientas</h2>
+        <div className="grid grid-cols-4 gap-2.5">
+          <QuickLink to="/personalizar" icon={Crown} label="A medida" tint="bg-primary/10 text-primary" />
+          <QuickLink to="/balanza" icon={Scale} label="Balanza" tint="bg-secondary/20 text-secondary-foreground" />
+          <QuickLink to="/progreso" icon={LineChart} label="Progreso" tint="bg-accent text-accent-foreground" />
+          <QuickLink to="/nutricionistas" icon={UserCheck} label="Nutri" tint="bg-success/15 text-success" />
         </div>
       </section>
 
@@ -149,5 +172,16 @@ function StatCard({
       <p className="text-lg font-bold leading-none">{value}</p>
       <p className="mt-1 text-xs text-muted-foreground">{label}</p>
     </div>
+  );
+}
+
+function QuickLink({ to, icon: Icon, label, tint }: { to: string; icon: React.ComponentType<{ className?: string }>; label: string; tint: string }) {
+  return (
+    <Link to={to} className="rounded-2xl bg-card p-3 shadow-card flex flex-col items-center gap-2 text-center transition active:scale-95">
+      <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${tint}`}>
+        <Icon className="h-5 w-5" />
+      </div>
+      <span className="text-[11px] font-semibold leading-tight">{label}</span>
+    </Link>
   );
 }

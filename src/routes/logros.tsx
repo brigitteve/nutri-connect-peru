@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
-import { Trophy, Target, Flame, Award, Lock } from "lucide-react";
+import { Trophy, Target, Flame, Award, Lock, Gamepad2, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/logros")({
   component: Logros,
@@ -18,8 +18,11 @@ const badges = [
 function Logros() {
   return (
     <AppShell>
-      <header className="px-5 pt-6 pb-3">
+      <header className="px-5 pt-6 pb-3 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Logros y retos</h1>
+        <Link to="/juegos" className="inline-flex items-center gap-1.5 rounded-full gradient-premium px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-glow">
+          <Gamepad2 className="h-3.5 w-3.5" /> Jugar
+        </Link>
       </header>
 
       {/* Nivel */}

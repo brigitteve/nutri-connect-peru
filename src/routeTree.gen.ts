@@ -13,13 +13,18 @@ import { Route as ValoracionRouteImport } from './routes/valoracion'
 import { Route as RestauranteRouteImport } from './routes/restaurante'
 import { Route as ReservarRouteImport } from './routes/reservar'
 import { Route as RegistroRouteImport } from './routes/registro'
+import { Route as ProgresoRouteImport } from './routes/progreso'
+import { Route as PersonalizarRouteImport } from './routes/personalizar'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as PedidosRouteImport } from './routes/pedidos'
+import { Route as NutricionistasRouteImport } from './routes/nutricionistas'
 import { Route as LogrosRouteImport } from './routes/logros'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as JuegosRouteImport } from './routes/juegos'
 import { Route as ExplorarRouteImport } from './routes/explorar'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
+import { Route as BalanzaRouteImport } from './routes/balanza'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlatoIdRouteImport } from './routes/plato.$id'
 
@@ -43,6 +48,16 @@ const RegistroRoute = RegistroRouteImport.update({
   path: '/registro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProgresoRoute = ProgresoRouteImport.update({
+  id: '/progreso',
+  path: '/progreso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonalizarRoute = PersonalizarRouteImport.update({
+  id: '/personalizar',
+  path: '/personalizar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerfilRoute = PerfilRouteImport.update({
   id: '/perfil',
   path: '/perfil',
@@ -53,6 +68,11 @@ const PedidosRoute = PedidosRouteImport.update({
   path: '/pedidos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NutricionistasRoute = NutricionistasRouteImport.update({
+  id: '/nutricionistas',
+  path: '/nutricionistas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LogrosRoute = LogrosRouteImport.update({
   id: '/logros',
   path: '/logros',
@@ -61,6 +81,11 @@ const LogrosRoute = LogrosRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JuegosRoute = JuegosRouteImport.update({
+  id: '/juegos',
+  path: '/juegos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExplorarRoute = ExplorarRouteImport.update({
@@ -78,6 +103,11 @@ const BienvenidaRoute = BienvenidaRouteImport.update({
   path: '/bienvenida',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BalanzaRoute = BalanzaRouteImport.update({
+  id: '/balanza',
+  path: '/balanza',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -91,13 +121,18 @@ const PlatoIdRoute = PlatoIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/balanza': typeof BalanzaRoute
   '/bienvenida': typeof BienvenidaRoute
   '/chat': typeof ChatRoute
   '/explorar': typeof ExplorarRoute
+  '/juegos': typeof JuegosRoute
   '/login': typeof LoginRoute
   '/logros': typeof LogrosRoute
+  '/nutricionistas': typeof NutricionistasRoute
   '/pedidos': typeof PedidosRoute
   '/perfil': typeof PerfilRoute
+  '/personalizar': typeof PersonalizarRoute
+  '/progreso': typeof ProgresoRoute
   '/registro': typeof RegistroRoute
   '/reservar': typeof ReservarRoute
   '/restaurante': typeof RestauranteRoute
@@ -106,13 +141,18 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/balanza': typeof BalanzaRoute
   '/bienvenida': typeof BienvenidaRoute
   '/chat': typeof ChatRoute
   '/explorar': typeof ExplorarRoute
+  '/juegos': typeof JuegosRoute
   '/login': typeof LoginRoute
   '/logros': typeof LogrosRoute
+  '/nutricionistas': typeof NutricionistasRoute
   '/pedidos': typeof PedidosRoute
   '/perfil': typeof PerfilRoute
+  '/personalizar': typeof PersonalizarRoute
+  '/progreso': typeof ProgresoRoute
   '/registro': typeof RegistroRoute
   '/reservar': typeof ReservarRoute
   '/restaurante': typeof RestauranteRoute
@@ -122,13 +162,18 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/balanza': typeof BalanzaRoute
   '/bienvenida': typeof BienvenidaRoute
   '/chat': typeof ChatRoute
   '/explorar': typeof ExplorarRoute
+  '/juegos': typeof JuegosRoute
   '/login': typeof LoginRoute
   '/logros': typeof LogrosRoute
+  '/nutricionistas': typeof NutricionistasRoute
   '/pedidos': typeof PedidosRoute
   '/perfil': typeof PerfilRoute
+  '/personalizar': typeof PersonalizarRoute
+  '/progreso': typeof ProgresoRoute
   '/registro': typeof RegistroRoute
   '/reservar': typeof ReservarRoute
   '/restaurante': typeof RestauranteRoute
@@ -139,13 +184,18 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/balanza'
     | '/bienvenida'
     | '/chat'
     | '/explorar'
+    | '/juegos'
     | '/login'
     | '/logros'
+    | '/nutricionistas'
     | '/pedidos'
     | '/perfil'
+    | '/personalizar'
+    | '/progreso'
     | '/registro'
     | '/reservar'
     | '/restaurante'
@@ -154,13 +204,18 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/balanza'
     | '/bienvenida'
     | '/chat'
     | '/explorar'
+    | '/juegos'
     | '/login'
     | '/logros'
+    | '/nutricionistas'
     | '/pedidos'
     | '/perfil'
+    | '/personalizar'
+    | '/progreso'
     | '/registro'
     | '/reservar'
     | '/restaurante'
@@ -169,13 +224,18 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/balanza'
     | '/bienvenida'
     | '/chat'
     | '/explorar'
+    | '/juegos'
     | '/login'
     | '/logros'
+    | '/nutricionistas'
     | '/pedidos'
     | '/perfil'
+    | '/personalizar'
+    | '/progreso'
     | '/registro'
     | '/reservar'
     | '/restaurante'
@@ -185,13 +245,18 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BalanzaRoute: typeof BalanzaRoute
   BienvenidaRoute: typeof BienvenidaRoute
   ChatRoute: typeof ChatRoute
   ExplorarRoute: typeof ExplorarRoute
+  JuegosRoute: typeof JuegosRoute
   LoginRoute: typeof LoginRoute
   LogrosRoute: typeof LogrosRoute
+  NutricionistasRoute: typeof NutricionistasRoute
   PedidosRoute: typeof PedidosRoute
   PerfilRoute: typeof PerfilRoute
+  PersonalizarRoute: typeof PersonalizarRoute
+  ProgresoRoute: typeof ProgresoRoute
   RegistroRoute: typeof RegistroRoute
   ReservarRoute: typeof ReservarRoute
   RestauranteRoute: typeof RestauranteRoute
@@ -229,6 +294,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegistroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/progreso': {
+      id: '/progreso'
+      path: '/progreso'
+      fullPath: '/progreso'
+      preLoaderRoute: typeof ProgresoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personalizar': {
+      id: '/personalizar'
+      path: '/personalizar'
+      fullPath: '/personalizar'
+      preLoaderRoute: typeof PersonalizarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/perfil': {
       id: '/perfil'
       path: '/perfil'
@@ -243,6 +322,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PedidosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nutricionistas': {
+      id: '/nutricionistas'
+      path: '/nutricionistas'
+      fullPath: '/nutricionistas'
+      preLoaderRoute: typeof NutricionistasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/logros': {
       id: '/logros'
       path: '/logros'
@@ -255,6 +341,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/juegos': {
+      id: '/juegos'
+      path: '/juegos'
+      fullPath: '/juegos'
+      preLoaderRoute: typeof JuegosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explorar': {
@@ -278,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BienvenidaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/balanza': {
+      id: '/balanza'
+      path: '/balanza'
+      fullPath: '/balanza'
+      preLoaderRoute: typeof BalanzaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -297,13 +397,18 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BalanzaRoute: BalanzaRoute,
   BienvenidaRoute: BienvenidaRoute,
   ChatRoute: ChatRoute,
   ExplorarRoute: ExplorarRoute,
+  JuegosRoute: JuegosRoute,
   LoginRoute: LoginRoute,
   LogrosRoute: LogrosRoute,
+  NutricionistasRoute: NutricionistasRoute,
   PedidosRoute: PedidosRoute,
   PerfilRoute: PerfilRoute,
+  PersonalizarRoute: PersonalizarRoute,
+  ProgresoRoute: ProgresoRoute,
   RegistroRoute: RegistroRoute,
   ReservarRoute: ReservarRoute,
   RestauranteRoute: RestauranteRoute,

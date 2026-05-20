@@ -52,8 +52,9 @@ function Perfil() {
       <section className="px-5 mt-6">
         <h2 className="text-sm font-bold mb-3 uppercase tracking-wider text-muted-foreground">Premium</h2>
         <div className="rounded-2xl bg-card shadow-card overflow-hidden divide-y divide-border">
-          <Item icon={Scale} title="Balanza digital" subtitle="Conectada" />
-          <Item icon={Crown} title="Mi nutricionista" subtitle="Lucía Vargas" />
+          <LinkItem to="/balanza" icon={Scale} title="Balanza digital" subtitle="Conectada" />
+          <LinkItem to="/progreso" icon={Crown} title="Mi progreso" subtitle="Gráficos y adherencia" />
+          <LinkItem to="/nutricionistas" icon={Crown} title="Mi nutricionista" subtitle="Lucía Vargas" />
         </div>
       </section>
 
@@ -122,5 +123,22 @@ function Item({
       </div>
       <ChevronRight className="h-4 w-4 text-muted-foreground" />
     </button>
+  );
+}
+
+function LinkItem({
+  to, icon: Icon, title, subtitle,
+}: { to: string; icon: React.ComponentType<{ className?: string }>; title: string; subtitle?: string }) {
+  return (
+    <Link to={to} className="w-full flex items-center gap-3 p-4 text-left">
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <Icon className="h-4 w-4" />
+      </div>
+      <div className="flex-1">
+        <p className="text-sm font-semibold">{title}</p>
+        {subtitle && <p className="text-[11px] text-muted-foreground">{subtitle}</p>}
+      </div>
+      <ChevronRight className="h-4 w-4 text-muted-foreground" />
+    </Link>
   );
 }
