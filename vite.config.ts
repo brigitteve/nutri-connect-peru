@@ -16,12 +16,12 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   server: {
-    port: 5173,
+    port: 3000,
     host: true,
     strictPort: true,
   },
   preview: {
-    port: 8080,
+    port: 3000,
     host: true,
   },
   resolve: {
