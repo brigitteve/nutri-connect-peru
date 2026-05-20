@@ -1,24 +1,50 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
-import { ChefHat, Package, Bike, Check, MessageCircle } from "lucide-react";
+import { ChefHat, Package, Bike, Check, MessageCircle, Bell } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/pedidos")({
   component: Pedidos,
 });
 
-const steps = [
-  { icon: ChefHat, label: "Preparando", done: true },
-  { icon: Package, label: "Listo", done: true },
-  { icon: Bike, label: "En camino", done: false, active: true },
-  { icon: Check, label: "Entregado", done: false },
+const stepDefs = [
+  { icon: ChefHat, label: "Preparando" },
+  { icon: Package, label: "Listo" },
+  { icon: Bike, label: "En camino" },
+  { icon: Check, label: "Entregado" },
 ];
 
 function Pedidos() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  // Simulate order progress
+  useEffect(() => {
+    if (currentStep >= stepDefs.length - 1) return;
+    const timer = setTimeout(() => {
+      setCurrentStep(s => s + 1);
+    }, 3000); // Advances every 3 seconds for demo purposes
+    return () => clearTimeout(timer);
+  }, [currentStep]);
+
+  const progressPercentage = (currentStep / (stepDefs.length - 1)) * 100;
+
   return (
     <AppShell>
       <header className="px-5 pt-6 pb-3">
         <h1 className="text-2xl font-bold">Mis pedidos</h1>
       </header>
+
+      {currentStep === stepDefs.length - 1 && (
+        <div className="mx-5 mb-4 animate-in slide-in-from-top-2 fade-in duration-300 rounded-2xl bg-success/15 border-2 border-success p-3 flex items-start gap-3">
+          <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-success text-success-foreground shrink-0">
+            <Bell className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-success">¡Tu pedido ha llegado!</p>
+            <p className="text-xs text-success/80 mt-0.5">Disfruta tu plato a medida. No olvides calificar al restaurante.</p>
+          </div>
+        </div>
+      )}
 
       <section className="px-5 mt-2">
         <div className="rounded-3xl bg-card shadow-card p-5">
@@ -28,34 +54,41 @@ function Pedidos() {
               <h2 className="font-bold mt-0.5">Lomo Saltado Fit</h2>
               <p className="text-xs text-muted-foreground mt-0.5">Sazón Saludable · S/ 32</p>
             </div>
-            <span className="rounded-full bg-secondary/20 px-2.5 py-1 text-[10px] font-bold text-secondary-foreground">
-              EN CAMINO
+            <span className="rounded-full bg-secondary/20 px-2.5 py-1 text-[10px] font-bold text-secondary-foreground uppercase">
+              {stepDefs[currentStep].label}
             </span>
           </div>
 
           {/* Tracker */}
           <div className="mt-6 relative">
             <div className="absolute top-5 left-5 right-5 h-0.5 bg-border" />
-            <div className="absolute top-5 left-5 h-0.5 bg-primary transition-all" style={{ width: "50%" }} />
+            <div 
+              className="absolute top-5 left-5 h-0.5 bg-primary transition-all duration-1000 ease-in-out" 
+              style={{ width: `calc(${progressPercentage}% - ${progressPercentage === 100 ? '40px' : '20px'})` }} 
+            />
             <div className="relative grid grid-cols-4">
-              {steps.map((s, i) => (
-                <div key={i} className="flex flex-col items-center">
-                  <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-full transition ${
-                      s.done
-                        ? "bg-primary text-primary-foreground"
-                        : s.active
-                          ? "bg-primary text-primary-foreground ring-4 ring-primary/20 animate-pulse"
+              {stepDefs.map((s, i) => {
+                const isDone = i < currentStep;
+                const isActive = i === currentStep;
+                return (
+                  <div key={i} className="flex flex-col items-center">
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-500 ${
+                        isDone || isActive
+                          ? "bg-primary text-primary-foreground"
                           : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    <s.icon className="h-4 w-4" />
+                      } ${isActive && i !== stepDefs.length - 1 ? "ring-4 ring-primary/20 animate-pulse" : ""}
+                        ${isActive && i === stepDefs.length - 1 ? "shadow-glow scale-110" : ""}
+                      `}
+                    >
+                      <s.icon className="h-4 w-4" />
+                    </div>
+                    <p className={`mt-2 text-[10px] font-semibold transition-colors duration-300 ${isDone || isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                      {s.label}
+                    </p>
                   </div>
-                  <p className={`mt-2 text-[10px] font-semibold ${s.done || s.active ? "" : "text-muted-foreground"}`}>
-                    {s.label}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -63,9 +96,15 @@ function Pedidos() {
             Llegada estimada <strong>1:42 PM</strong>
           </p>
 
-          <Link to="/chat" className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-border py-3 text-sm font-semibold">
+          <Link to="/chat" className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-border py-3 text-sm font-semibold hover:bg-muted transition-colors">
             <MessageCircle className="h-4 w-4" /> Chatear con el restaurante
           </Link>
+          
+          {currentStep === stepDefs.length - 1 && (
+            <Link to="/valoracion" className="mt-3 w-full flex items-center justify-center gap-2 rounded-full gradient-premium text-primary-foreground py-3 text-sm font-bold shadow-glow animate-in fade-in zoom-in duration-500">
+               Valorar ahora
+            </Link>
+          )}
         </div>
       </section>
 
@@ -83,6 +122,8 @@ function Pedidos() {
           ))}
         </div>
       </section>
+      
+      <div className="h-24" />
     </AppShell>
   );
 }

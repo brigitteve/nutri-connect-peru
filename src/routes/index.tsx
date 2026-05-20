@@ -1,8 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { dishes } from "@/lib/dishes";
-import { Flame, Trophy, TrendingUp, Sparkles, ChevronRight, Crown, Scale, LineChart, UserCheck, Gamepad2 } from "lucide-react";
+import { Flame, Trophy, TrendingUp, Sparkles, ChevronRight, Crown, Scale, LineChart, UserCheck, Gamepad2, ArrowUpCircle } from "lucide-react";
 import heroImg from "@/assets/hero-nutritionist.jpg";
 
 export const Route = createFileRoute("/")({
@@ -27,6 +27,8 @@ function useFirstVisitRedirect() {
 
 function Home() {
   useFirstVisitRedirect();
+  const [isPremium, setIsPremium] = useState(true);
+
   return (
     <AppShell>
       {/* Header */}
@@ -34,7 +36,15 @@ function Home() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs text-muted-foreground">Hola,</p>
-            <h1 className="text-2xl font-bold">Camila 👋</h1>
+            <h1 className="text-2xl font-bold flex items-center gap-2">
+              Camila 👋 
+              <button 
+                onClick={() => setIsPremium(!isPremium)}
+                className={`text-[10px] px-2 py-0.5 rounded-full font-bold transition-colors ${isPremium ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
+              >
+                {isPremium ? 'PREMIUM' : 'FREEMIUM'}
+              </button>
+            </h1>
           </div>
           <div className="flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5">
             <Sparkles className="h-3.5 w-3.5 text-accent-foreground" />
@@ -43,30 +53,53 @@ function Home() {
         </div>
       </header>
 
-      {/* Premium CTA */}
+      {/* CTA */}
       <section className="px-5">
-        <div className="relative overflow-hidden rounded-3xl gradient-premium p-5 text-primary-foreground shadow-elevated">
-          <div className="relative z-10 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 backdrop-blur">
-              <Crown className="h-6 w-6" />
+        {isPremium ? (
+          <div className="relative overflow-hidden rounded-3xl gradient-premium p-5 text-primary-foreground shadow-elevated">
+            <div className="relative z-10 flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 backdrop-blur">
+                <Crown className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs uppercase tracking-wider opacity-90">Premium</p>
+                <p className="font-bold leading-tight">Reserva un plato 100% a tu medida</p>
+              </div>
             </div>
-            <div className="flex-1">
-              <p className="text-xs uppercase tracking-wider opacity-90">Premium</p>
-              <p className="font-bold leading-tight">Reserva un plato 100% a tu medida</p>
-            </div>
+            <p className="relative z-10 mt-3 text-sm opacity-95">
+              Nuestros nutricionistas diseñan tu plato según tus macros, alergias y objetivos.
+            </p>
+            <Link
+              to="/personalizar"
+              className="relative z-10 mt-4 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary"
+            >
+              Diseñar mi plato <ChevronRight className="h-4 w-4" />
+            </Link>
+            <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10" />
+            <div className="absolute -right-12 bottom-0 h-24 w-24 rounded-full bg-white/10" />
           </div>
-          <p className="relative z-10 mt-3 text-sm opacity-95">
-            Nuestros nutricionistas diseñan tu plato según tus macros, alergias y objetivos.
-          </p>
-          <Link
-            to="/personalizar"
-            className="relative z-10 mt-4 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary"
-          >
-            Diseñar mi plato <ChevronRight className="h-4 w-4" />
-          </Link>
-          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10" />
-          <div className="absolute -right-12 bottom-0 h-24 w-24 rounded-full bg-white/10" />
-        </div>
+        ) : (
+          <div className="relative overflow-hidden rounded-3xl bg-secondary/10 border-2 border-secondary p-5 text-foreground shadow-sm">
+            <div className="relative z-10 flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/20">
+                <ArrowUpCircle className="h-6 w-6 text-secondary-foreground" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Plan Básico</p>
+                <p className="font-bold leading-tight text-secondary-foreground">Desbloquea tu potencial</p>
+              </div>
+            </div>
+            <p className="relative z-10 mt-3 text-sm text-muted-foreground">
+              Sincroniza tu balanza, chatea con nutricionistas y pide platos 100% a medida.
+            </p>
+            <Link
+              to="/upgrade"
+              className="relative z-10 mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground shadow-glow"
+            >
+              Mejorar a Premium <Crown className="h-4 w-4" />
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* Progreso */}
@@ -83,8 +116,17 @@ function Home() {
       <section className="px-5 mt-6">
         <h2 className="mb-3 text-sm font-semibold text-muted-foreground uppercase tracking-wider">Tus herramientas</h2>
         <div className="grid grid-cols-4 gap-2.5">
-          <QuickLink to="/personalizar" icon={Crown} label="A medida" tint="bg-primary/10 text-primary" />
-          <QuickLink to="/balanza" icon={Scale} label="Balanza" tint="bg-secondary/20 text-secondary-foreground" />
+          {isPremium ? (
+            <>
+              <QuickLink to="/personalizar" icon={Crown} label="A medida" tint="bg-primary/10 text-primary" />
+              <QuickLink to="/balanza" icon={Scale} label="Balanza" tint="bg-secondary/20 text-secondary-foreground" />
+            </>
+          ) : (
+            <>
+              <QuickLink to="/upgrade" icon={Crown} label="A medida" tint="bg-muted text-muted-foreground" />
+              <QuickLink to="/upgrade" icon={Scale} label="Balanza" tint="bg-muted text-muted-foreground" />
+            </>
+          )}
           <QuickLink to="/progreso" icon={LineChart} label="Progreso" tint="bg-accent text-accent-foreground" />
           <QuickLink to="/nutricionistas" icon={UserCheck} label="Nutri" tint="bg-success/15 text-success" />
         </div>
@@ -114,6 +156,11 @@ function Home() {
                   <span className="absolute top-3 left-3 flex items-center gap-1 rounded-full premium-shine px-2.5 py-1 text-[10px] font-bold text-gold-foreground shadow">
                     <Crown className="h-3 w-3" /> A MEDIDA
                   </span>
+                )}
+                {!isPremium && d.premium && (
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="bg-background text-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">Solo Premium</span>
+                  </div>
                 )}
               </div>
               <div className="p-4">
