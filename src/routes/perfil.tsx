@@ -70,12 +70,18 @@ function Perfil() {
         Cumplimos con la Ley de Protección de Datos del Perú
       </p>
 
-      <div className="mt-3 px-5">
+      <div className="mt-3 px-5 space-y-2">
         <Link
           to="/restaurante"
           className="block text-center rounded-full border border-border bg-card py-3 text-xs font-semibold text-muted-foreground"
         >
           Ir al panel de restaurante →
+        </Link>
+        <Link
+          to="/bienvenida"
+          className="block text-center rounded-full border border-border bg-card py-3 text-xs font-semibold text-muted-foreground"
+        >
+          Ver onboarding / Login →
         </Link>
       </div>
 
