@@ -9,38 +9,175 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RestauranteRouteImport } from './routes/restaurante'
+import { Route as ReservarRouteImport } from './routes/reservar'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as PedidosRouteImport } from './routes/pedidos'
+import { Route as LogrosRouteImport } from './routes/logros'
+import { Route as ExplorarRouteImport } from './routes/explorar'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlatoIdRouteImport } from './routes/plato.$id'
 
+const RestauranteRoute = RestauranteRouteImport.update({
+  id: '/restaurante',
+  path: '/restaurante',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReservarRoute = ReservarRouteImport.update({
+  id: '/reservar',
+  path: '/reservar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidosRoute = PedidosRouteImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogrosRoute = LogrosRouteImport.update({
+  id: '/logros',
+  path: '/logros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorarRoute = ExplorarRouteImport.update({
+  id: '/explorar',
+  path: '/explorar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatoIdRoute = PlatoIdRouteImport.update({
+  id: '/plato/$id',
+  path: '/plato/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/explorar': typeof ExplorarRoute
+  '/logros': typeof LogrosRoute
+  '/pedidos': typeof PedidosRoute
+  '/perfil': typeof PerfilRoute
+  '/reservar': typeof ReservarRoute
+  '/restaurante': typeof RestauranteRoute
+  '/plato/$id': typeof PlatoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/explorar': typeof ExplorarRoute
+  '/logros': typeof LogrosRoute
+  '/pedidos': typeof PedidosRoute
+  '/perfil': typeof PerfilRoute
+  '/reservar': typeof ReservarRoute
+  '/restaurante': typeof RestauranteRoute
+  '/plato/$id': typeof PlatoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/explorar': typeof ExplorarRoute
+  '/logros': typeof LogrosRoute
+  '/pedidos': typeof PedidosRoute
+  '/perfil': typeof PerfilRoute
+  '/reservar': typeof ReservarRoute
+  '/restaurante': typeof RestauranteRoute
+  '/plato/$id': typeof PlatoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/explorar'
+    | '/logros'
+    | '/pedidos'
+    | '/perfil'
+    | '/reservar'
+    | '/restaurante'
+    | '/plato/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/explorar'
+    | '/logros'
+    | '/pedidos'
+    | '/perfil'
+    | '/reservar'
+    | '/restaurante'
+    | '/plato/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/explorar'
+    | '/logros'
+    | '/pedidos'
+    | '/perfil'
+    | '/reservar'
+    | '/restaurante'
+    | '/plato/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExplorarRoute: typeof ExplorarRoute
+  LogrosRoute: typeof LogrosRoute
+  PedidosRoute: typeof PedidosRoute
+  PerfilRoute: typeof PerfilRoute
+  ReservarRoute: typeof ReservarRoute
+  RestauranteRoute: typeof RestauranteRoute
+  PlatoIdRoute: typeof PlatoIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/restaurante': {
+      id: '/restaurante'
+      path: '/restaurante'
+      fullPath: '/restaurante'
+      preLoaderRoute: typeof RestauranteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reservar': {
+      id: '/reservar'
+      path: '/reservar'
+      fullPath: '/reservar'
+      preLoaderRoute: typeof ReservarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedidos': {
+      id: '/pedidos'
+      path: '/pedidos'
+      fullPath: '/pedidos'
+      preLoaderRoute: typeof PedidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logros': {
+      id: '/logros'
+      path: '/logros'
+      fullPath: '/logros'
+      preLoaderRoute: typeof LogrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explorar': {
+      id: '/explorar'
+      path: '/explorar'
+      fullPath: '/explorar'
+      preLoaderRoute: typeof ExplorarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +185,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plato/$id': {
+      id: '/plato/$id'
+      path: '/plato/$id'
+      fullPath: '/plato/$id'
+      preLoaderRoute: typeof PlatoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExplorarRoute: ExplorarRoute,
+  LogrosRoute: LogrosRoute,
+  PedidosRoute: PedidosRoute,
+  PerfilRoute: PerfilRoute,
+  ReservarRoute: ReservarRoute,
+  RestauranteRoute: RestauranteRoute,
+  PlatoIdRoute: PlatoIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
