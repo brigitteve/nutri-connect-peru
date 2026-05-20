@@ -156,6 +156,7 @@ function Registro() {
           ) : (
             <Link
               to="/"
+              onClick={() => { if (typeof window !== "undefined") localStorage.setItem("nc_onboarded", "1"); }}
               className="block w-full rounded-full gradient-premium py-4 text-center text-sm font-bold text-primary-foreground shadow-glow"
             >
               Empezar mi camino nutri
