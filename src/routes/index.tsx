@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { AppShell } from "@/components/AppShell";
 import { dishes } from "@/lib/dishes";
-import { Flame, Trophy, TrendingUp, Sparkles, ChevronRight, Crown } from "lucide-react";
+import { Flame, Trophy, TrendingUp, Sparkles, ChevronRight, Crown, Scale, LineChart, UserCheck, Gamepad2 } from "lucide-react";
 import heroImg from "@/assets/hero-nutritionist.jpg";
 
 export const Route = createFileRoute("/")({
@@ -14,7 +15,18 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+function useFirstVisitRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!localStorage.getItem("nc_onboarded")) {
+      navigate({ to: "/bienvenida" });
+    }
+  }, [navigate]);
+}
+
 function Home() {
+  useFirstVisitRedirect();
   return (
     <AppShell>
       {/* Header */}
