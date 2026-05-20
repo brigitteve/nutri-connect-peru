@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { ChefHat, Package, Bike, Check, MessageCircle } from "lucide-react";
 
@@ -63,9 +63,9 @@ function Pedidos() {
             Llegada estimada <strong>1:42 PM</strong>
           </p>
 
-          <button className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-border py-3 text-sm font-semibold">
+          <Link to="/chat" className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-border py-3 text-sm font-semibold">
             <MessageCircle className="h-4 w-4" /> Chatear con el restaurante
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -78,7 +78,7 @@ function Pedidos() {
                 <p className="font-semibold text-sm">{n}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">Hace {i + 2} días · Entregado</p>
               </div>
-              <button className="text-xs font-bold text-primary">Reordenar</button>
+              <Link to="/valoracion" className="text-xs font-bold text-primary">Valorar</Link>
             </div>
           ))}
         </div>
