@@ -48,7 +48,11 @@ function Onboarding() {
           >
             Iniciar sesión
           </Link>
-          <Link to="/" className="block text-center text-xs text-muted-foreground pt-2">
+          <Link
+            to="/"
+            onClick={() => { if (typeof window !== "undefined") localStorage.setItem("nc_onboarded", "1"); }}
+            className="block text-center text-xs text-muted-foreground pt-2"
+          >
             Continuar como invitado →
           </Link>
         </div>
