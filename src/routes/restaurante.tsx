@@ -92,7 +92,25 @@ function Restaurante() {
           </div>
         </section>
       </div>
+
+      {/* Bottom nav exclusivo del modo restaurante */}
+      <nav className="fixed bottom-0 inset-x-0 z-50 border-t border-border bg-card/95 backdrop-blur-lg">
+        <div className="mx-auto max-w-md grid grid-cols-4">
+          <RNavItem label="Pedidos" active />
+          <RNavItem label="Platos" />
+          <RNavItem label="Chat" />
+          <RNavItem label="Ranking" />
+        </div>
+      </nav>
     </div>
+  );
+}
+
+function RNavItem({ label, active }: { label: string; active?: boolean }) {
+  return (
+    <button className={`py-3 text-[11px] font-bold ${active ? "text-primary" : "text-muted-foreground"}`}>
+      {label}
+    </button>
   );
 }
 
