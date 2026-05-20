@@ -50,6 +50,16 @@ function Perfil() {
       </section>
 
       <section className="px-5 mt-6">
+        <Link to="/upgrade" className="block rounded-2xl gradient-premium p-5 shadow-glow text-primary-foreground">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold opacity-90">
+            <Crown className="h-3.5 w-3.5" /> Mejorar plan
+          </div>
+          <p className="mt-1 text-base font-bold leading-tight">Desbloquea platos a medida y balanza digital</p>
+          <p className="mt-1 text-xs opacity-90">Desde S/ 29/mes · Pago seguro con Stripe</p>
+        </Link>
+      </section>
+
+      <section className="px-5 mt-6">
         <h2 className="text-sm font-bold mb-3 uppercase tracking-wider text-muted-foreground">Premium</h2>
         <div className="rounded-2xl bg-card shadow-card overflow-hidden divide-y divide-border">
           <LinkItem to="/balanza" icon={Scale} title="Balanza digital" subtitle="Conectada" />
@@ -71,13 +81,25 @@ function Perfil() {
         Cumplimos con la Ley de Protección de Datos del Perú
       </p>
 
-      <div className="mt-3 px-5 space-y-2">
-        <Link
-          to="/restaurante"
-          className="block text-center rounded-full border border-border bg-card py-3 text-xs font-semibold text-muted-foreground"
-        >
-          Ir al panel de restaurante →
-        </Link>
+      <section className="mt-6 px-5">
+        <h2 className="text-sm font-bold mb-3 uppercase tracking-wider text-muted-foreground">¿Eres restaurante?</h2>
+        <div className="rounded-2xl border border-dashed border-border bg-card p-4">
+          <p className="text-sm font-bold">Cambia al modo restaurante</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Gestiona pedidos, platos y ranking desde un panel independiente.
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <Link to="/restaurante/login" className="text-center rounded-full bg-foreground py-2.5 text-xs font-bold text-background">
+              Iniciar como restaurante
+            </Link>
+            <Link to="/restaurante/registro" className="text-center rounded-full border border-border py-2.5 text-xs font-bold">
+              Soy nuevo partner
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <div className="mt-3 px-5">
         <Link
           to="/bienvenida"
           className="block text-center rounded-full border border-border bg-card py-3 text-xs font-semibold text-muted-foreground"

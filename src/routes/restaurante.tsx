@@ -7,9 +7,15 @@ export const Route = createFileRoute("/restaurante")({
 
 function Restaurante() {
   return (
-    <div className="min-h-screen bg-background pb-10">
+    <div className="min-h-screen bg-background pb-24">
+      {/* Banner modo restaurante */}
+      <div className="bg-foreground text-background px-5 py-2 text-center text-[11px] font-semibold flex items-center justify-center gap-2">
+        <ChefHat className="h-3.5 w-3.5" /> Modo restaurante activo
+        <Link to="/perfil" className="ml-2 underline opacity-80">Volver a modo usuario</Link>
+      </div>
+
       <div className="mx-auto max-w-md">
-        <header className="flex items-center gap-3 px-5 pt-6 pb-3">
+        <header className="flex items-center gap-3 px-5 pt-5 pb-3">
           <Link to="/perfil" className="flex h-10 w-10 items-center justify-center rounded-full bg-card shadow-card">
             <ArrowLeft className="h-5 w-5" />
           </Link>
