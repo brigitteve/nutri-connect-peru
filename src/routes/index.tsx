@@ -174,3 +174,14 @@ function StatCard({
     </div>
   );
 }
+
+function QuickLink({ to, icon: Icon, label, tint }: { to: string; icon: React.ComponentType<{ className?: string }>; label: string; tint: string }) {
+  return (
+    <Link to={to} className="rounded-2xl bg-card p-3 shadow-card flex flex-col items-center gap-2 text-center transition active:scale-95">
+      <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${tint}`}>
+        <Icon className="h-5 w-5" />
+      </div>
+      <span className="text-[11px] font-semibold leading-tight">{label}</span>
+    </Link>
+  );
+}
