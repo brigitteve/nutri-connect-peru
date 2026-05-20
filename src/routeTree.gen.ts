@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ValoracionRouteImport } from './routes/valoracion'
+import { Route as UpgradeRouteImport } from './routes/upgrade'
 import { Route as RestauranteRouteImport } from './routes/restaurante'
 import { Route as ReservarRouteImport } from './routes/reservar'
 import { Route as RegistroRouteImport } from './routes/registro'
@@ -26,11 +27,18 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
 import { Route as BalanzaRouteImport } from './routes/balanza'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RestauranteRegistroRouteImport } from './routes/restaurante.registro'
+import { Route as RestauranteLoginRouteImport } from './routes/restaurante.login'
 import { Route as PlatoIdRouteImport } from './routes/plato.$id'
 
 const ValoracionRoute = ValoracionRouteImport.update({
   id: '/valoracion',
   path: '/valoracion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpgradeRoute = UpgradeRouteImport.update({
+  id: '/upgrade',
+  path: '/upgrade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RestauranteRoute = RestauranteRouteImport.update({
@@ -113,6 +121,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestauranteRegistroRoute = RestauranteRegistroRouteImport.update({
+  id: '/registro',
+  path: '/registro',
+  getParentRoute: () => RestauranteRoute,
+} as any)
+const RestauranteLoginRoute = RestauranteLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => RestauranteRoute,
+} as any)
 const PlatoIdRoute = PlatoIdRouteImport.update({
   id: '/plato/$id',
   path: '/plato/$id',
@@ -135,9 +153,12 @@ export interface FileRoutesByFullPath {
   '/progreso': typeof ProgresoRoute
   '/registro': typeof RegistroRoute
   '/reservar': typeof ReservarRoute
-  '/restaurante': typeof RestauranteRoute
+  '/restaurante': typeof RestauranteRouteWithChildren
+  '/upgrade': typeof UpgradeRoute
   '/valoracion': typeof ValoracionRoute
   '/plato/$id': typeof PlatoIdRoute
+  '/restaurante/login': typeof RestauranteLoginRoute
+  '/restaurante/registro': typeof RestauranteRegistroRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -155,9 +176,12 @@ export interface FileRoutesByTo {
   '/progreso': typeof ProgresoRoute
   '/registro': typeof RegistroRoute
   '/reservar': typeof ReservarRoute
-  '/restaurante': typeof RestauranteRoute
+  '/restaurante': typeof RestauranteRouteWithChildren
+  '/upgrade': typeof UpgradeRoute
   '/valoracion': typeof ValoracionRoute
   '/plato/$id': typeof PlatoIdRoute
+  '/restaurante/login': typeof RestauranteLoginRoute
+  '/restaurante/registro': typeof RestauranteRegistroRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -176,9 +200,12 @@ export interface FileRoutesById {
   '/progreso': typeof ProgresoRoute
   '/registro': typeof RegistroRoute
   '/reservar': typeof ReservarRoute
-  '/restaurante': typeof RestauranteRoute
+  '/restaurante': typeof RestauranteRouteWithChildren
+  '/upgrade': typeof UpgradeRoute
   '/valoracion': typeof ValoracionRoute
   '/plato/$id': typeof PlatoIdRoute
+  '/restaurante/login': typeof RestauranteLoginRoute
+  '/restaurante/registro': typeof RestauranteRegistroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -199,8 +226,11 @@ export interface FileRouteTypes {
     | '/registro'
     | '/reservar'
     | '/restaurante'
+    | '/upgrade'
     | '/valoracion'
     | '/plato/$id'
+    | '/restaurante/login'
+    | '/restaurante/registro'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -219,8 +249,11 @@ export interface FileRouteTypes {
     | '/registro'
     | '/reservar'
     | '/restaurante'
+    | '/upgrade'
     | '/valoracion'
     | '/plato/$id'
+    | '/restaurante/login'
+    | '/restaurante/registro'
   id:
     | '__root__'
     | '/'
@@ -239,8 +272,11 @@ export interface FileRouteTypes {
     | '/registro'
     | '/reservar'
     | '/restaurante'
+    | '/upgrade'
     | '/valoracion'
     | '/plato/$id'
+    | '/restaurante/login'
+    | '/restaurante/registro'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,7 +295,8 @@ export interface RootRouteChildren {
   ProgresoRoute: typeof ProgresoRoute
   RegistroRoute: typeof RegistroRoute
   ReservarRoute: typeof ReservarRoute
-  RestauranteRoute: typeof RestauranteRoute
+  RestauranteRoute: typeof RestauranteRouteWithChildren
+  UpgradeRoute: typeof UpgradeRoute
   ValoracionRoute: typeof ValoracionRoute
   PlatoIdRoute: typeof PlatoIdRoute
 }
@@ -271,6 +308,13 @@ declare module '@tanstack/react-router' {
       path: '/valoracion'
       fullPath: '/valoracion'
       preLoaderRoute: typeof ValoracionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upgrade': {
+      id: '/upgrade'
+      path: '/upgrade'
+      fullPath: '/upgrade'
+      preLoaderRoute: typeof UpgradeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/restaurante': {
@@ -385,6 +429,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurante/registro': {
+      id: '/restaurante/registro'
+      path: '/registro'
+      fullPath: '/restaurante/registro'
+      preLoaderRoute: typeof RestauranteRegistroRouteImport
+      parentRoute: typeof RestauranteRoute
+    }
+    '/restaurante/login': {
+      id: '/restaurante/login'
+      path: '/login'
+      fullPath: '/restaurante/login'
+      preLoaderRoute: typeof RestauranteLoginRouteImport
+      parentRoute: typeof RestauranteRoute
+    }
     '/plato/$id': {
       id: '/plato/$id'
       path: '/plato/$id'
@@ -394,6 +452,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface RestauranteRouteChildren {
+  RestauranteLoginRoute: typeof RestauranteLoginRoute
+  RestauranteRegistroRoute: typeof RestauranteRegistroRoute
+}
+
+const RestauranteRouteChildren: RestauranteRouteChildren = {
+  RestauranteLoginRoute: RestauranteLoginRoute,
+  RestauranteRegistroRoute: RestauranteRegistroRoute,
+}
+
+const RestauranteRouteWithChildren = RestauranteRoute._addFileChildren(
+  RestauranteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -411,10 +483,21 @@ const rootRouteChildren: RootRouteChildren = {
   ProgresoRoute: ProgresoRoute,
   RegistroRoute: RegistroRoute,
   ReservarRoute: ReservarRoute,
-  RestauranteRoute: RestauranteRoute,
+  RestauranteRoute: RestauranteRouteWithChildren,
+  UpgradeRoute: UpgradeRoute,
   ValoracionRoute: ValoracionRoute,
   PlatoIdRoute: PlatoIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
